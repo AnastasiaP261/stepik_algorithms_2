@@ -111,7 +111,6 @@ def calc(_list):
         else:
             queue.extend(_list[cur_peak])
 
-    print(height)
     return height
 
 
