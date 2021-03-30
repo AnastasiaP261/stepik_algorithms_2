@@ -183,6 +183,48 @@ def main():
     print('\n'.join(map(str, processing(buf_size, packets))))
 ```
 
+## Стек с поддержкой максимума
+Постановка задачи:
+>В данной задаче ваша цель — расширить интерфейс стека так, чтобы он дополнительно поддерживал операцию max 
+> и при этом чтобы время работы всех операций по-прежнему было константным.  
+> **Формат входа.** Первая строка содержит число запросов _q_. Каждая из 
+> последующих _q_ строк задаёт запрос в одном из следующих форматов: push v, pop, or max. 
+> **Формат выхода.** Для каждого запроса max выведите (в отдельной строке) текущий максимум на стеке. 
+> **Ограничения.** _1 ≤ q ≤ 400 000_, _0 ≤ v ≤ 100 000_.
+
+Код:
+``` python
+import re
+from sys import stdin, stdout
+
+
+def proc_stack_command(com, stack):
+    if re.match(r'push', com):
+        v1 = int(com.split()[-1])
+        if len(stack) == 0 or v1 > stack[-1][1]:
+            v2 = v1
+        else:
+            v2 = stack[-1][1]
+        stack.append([v1, v2])
+    elif re.match(r'pop$', com):
+        if stack:
+            stack.pop()
+    elif re.match(r'max$', com):
+        if stack:
+            return stack[-1][1]
+        return 0
+
+
+def main():
+    n = int(stdin.readline())
+
+    stack = []
+    for _ in range(n):
+        answ = proc_stack_command(stdin.readline(), stack)
+        if type(answ) == int:
+            stdout.write(str(answ) + '\n')
+```
+
 <!---
 ## Название
 Постановка задачи:
