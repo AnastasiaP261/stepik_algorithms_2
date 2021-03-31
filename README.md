@@ -20,7 +20,7 @@
     <kbd>network_packet_processing.py</kbd> 
 4. 🟢 [Стек с поддержкой максимума](https://github.com/AnastasiaP261/stepik_alghoritms_2#%D1%81%D1%82%D0%B5%D0%BA-%D1%81-%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%BE%D0%B9-%D0%BC%D0%B0%D0%BA%D1%81%D0%B8%D0%BC%D1%83%D0%BC%D0%B0)
     <kbd>stack_with_max.py</kbd>   
-5. 🟢 [Максимум в скользящем окне](https://github.com/AnastasiaP261/stepik_alghoritms_2#%D1%81%D1%82%D0%B5%D0%BA-%D1%81-%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%BE%D0%B9-%D0%BC%D0%B0%D0%BA%D1%81%D0%B8%D0%BC%D1%83%D0%BC%D0%B0)
+5. 🟢 [Максимум в скользящем окне](https://github.com/AnastasiaP261/stepik_alghoritms_2#%D0%BC%D0%B0%D0%BA%D1%81%D0%B8%D0%BC%D1%83%D0%BC-%D0%B2-%D1%81%D0%BA%D0%BE%D0%BB%D1%8C%D0%B7%D1%8F%D1%89%D0%B5%D0%BC-%D0%BE%D0%BA%D0%BD%D0%B5)
     <kbd>max_in_a_sliding_window.py</kbd>      
    
 ## Расстановка скобок в коде
@@ -240,7 +240,43 @@ def main():
 
 Код:
 ``` python
+def to_put(q, num):
+    if not q or q[-1][1] <= num:
+        q.append([num, num])
+    else:
+        q.append([num, q[-1][1]])
 
+
+def to_shift(q1, q2):
+    for i in range(len(q1)):
+        to_put(q2, q1.pop()[0])
+
+
+def search_max_in_win(win_size, nums):
+    q1 = []
+    q2 = []
+    answer = []
+
+    for i in range(len(nums)):
+        if len(q1) < win_size:
+            to_put(q1, nums[i])
+
+        if len(q1) == win_size:
+            to_shift(q1, q2)
+            answer.append(q2.pop()[1])
+        elif q2:
+            answer.append(max(q1[-1][1], q2[-1][1]))
+            q2.pop()
+
+    return answer
+
+
+def main():
+    n = int(input())
+    nums = list(map(int, input().split()))
+    win_size = int(input())
+
+    print(' '.join(map(str, search_max_in_win(win_size, nums))))
 ```
 
 <!---
