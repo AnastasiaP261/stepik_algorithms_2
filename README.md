@@ -26,7 +26,7 @@
     <kbd>heap_building.py</kbd>   
 7. 🟢 [Параллельная обработка](https://github.com/AnastasiaP261/stepik_alghoritms_2#%D0%BF%D0%B0%D1%80%D0%B0%D0%BB%D0%BB%D0%B5%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F-%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0)
     <kbd>parallel_proc.py</kbd>   
-8. 🟢 [Объединение таблиц]()
+8. 🟢 [Объединение таблиц](https://github.com/AnastasiaP261/stepik_alghoritms_2#%D0%BE%D0%B1%D1%8A%D0%B5%D0%B4%D0%B8%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86)
     <kbd>sys_of_disjoint_sets.py</kbd>   
    
 ## Расстановка скобок в коде
