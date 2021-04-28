@@ -405,11 +405,6 @@ def main():
 _max = 0
 
 
-def make_set(i, parent, rank):
-    parent[i] = i
-    rank[i] = 0
-
-
 def find(i, parent):
     if i != parent[i]:
         parent[i] = find(parent[i], parent)
