@@ -540,8 +540,9 @@ def main():
 ## Хеширование цепочками
 Постановка задачи:
 >Хеширование цепочками — один из наиболее популярных методов реализации хеш-таблиц на практике. Ваша цель в данной 
-> задаче — реализовать такую схему, используя таблицу с _m_ ячейками и полиномиальной хеш-функцией на строках, где 
-> _S[i]_ — ASCII-код _i_-го символа строки _S_, _p = 1 000 000 007_ — простое число, а _x = 263_. Ваша программа 
+> задаче — реализовать такую схему, используя таблицу с _m_ ячейками и полиномиальной хеш-функцией на строках:  
+> ![формула](https://ibb.co/dJrDzZK)  
+> , где _S[i]_ — ASCII-код _i_-го символа строки _S_, _p = 1 000 000 007_ — простое число, а _x = 263_. Ваша программа 
 > должна поддерживать следующие типы запросов:
 > - `add string`: добавить строку _string_ в таблицу. Если такая строка уже есть, проигнорировать запрос; 
 > - `del string`: удалить строку _string_ из таблицы. Если такой строки нет, проигнорировать запрос;
@@ -597,6 +598,56 @@ def main():
         elif command == 'check':
             print(' '.join(hash_table[int(entry)]))
 ```
+
+## Поиск образца в тексте
+Постановка задачи:
+> Реализуйте алгоритм Карпа–Рабина.  
+> **Формат входа.** Образец _Pattern_ и текст _Text_.  
+> **Формат выхода.** Индексы вхождений строки _Pattern_ в строку _Text_ в возрастающем порядке, используя 
+> индексацию с нуля.  
+> **Ограничения.** _1 ≤ |Pattern| ≤ |Text| ≤ 5 · 10<sup>5</sup>_. Суммарная длина всех вхождений образца в тексте не 
+> превосходит _10<sup>8</sup>_. Обе строки содержат буквы латинского алфавита.
+
+Код:
+``` python
+x = 29
+p = 999_999_000_001
+
+
+def hash_func(word):
+    _sum = 0
+    i = 0
+    for i, c in enumerate(word):
+        _sum += ord(c) * pow(x, i, p)
+    _sum %= p
+    return _sum, ord(word[-1]) * pow(x, i, p)
+
+
+def main():
+    pattern = input()
+    pattern_key = hash_func(pattern)[0]
+
+    text = input()
+    win_prev = text[-len(pattern):]
+    win_prev_key, monom_prev = hash_func(win_prev)
+
+    answer = []
+    i = -1
+    pow_p = pow(x, len(pattern) - 1, p)
+    for i in range(-2, -(len(text) - len(pattern)) - 2, -1):
+        if win_prev_key == pattern_key:
+            answer.append(len(text) + i - len(pattern) + 2)
+
+        win_prev_key = ((win_prev_key - monom_prev) * x + ord(text[i - len(pattern) + 1])) % p
+        monom_prev = (ord(text[i]) * pow_p) % p
+    else:
+        if win_prev_key == pattern_key:
+            answer.append(len(text) + i - len(pattern) + 1)
+
+    answer.reverse()
+    print(' '.join(map(str, list(answer))))
+```
+
 
 <!---
 ## Название
